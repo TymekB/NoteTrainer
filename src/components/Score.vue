@@ -5,7 +5,7 @@
 
         </div>
 
-        <Notes></Notes>
+        <Notes :notes="notes" v-on:check-note="checkNote"></Notes>
     </div>
 
 </template>
@@ -73,6 +73,17 @@
             drawRandomNote() {
                 this.setRandomNote();
                 this.drawNote(this.note);
+            },
+            checkNote(note) {
+                if (note === this.note.substring(-1, 1)) {
+                    alert('right');
+                } else {
+                    alert('wrong');
+                }
+
+                setTimeout(() => {
+                   this.drawRandomNote();
+                }, 1000);
             }
         },
         mounted() {
