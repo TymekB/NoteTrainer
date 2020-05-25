@@ -28,4 +28,8 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    button {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+    }
 </style>

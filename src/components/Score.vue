@@ -5,22 +5,24 @@
 
         </div>
 
-        <button v-on:click="refresh">refresh</button>
+        <Notes></Notes>
     </div>
 
 </template>
 
 <script>
     import Vex from 'vexflow';
+    import Notes from "./Notes";
 
     export default {
         name: "Score",
+        components: {Notes},
         data: function () {
             return {
                 elementId: 'score',
                 notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
                 note: null,
-                previousNote: null
+                previousNote: null,
             }
         },
         methods: {
@@ -67,10 +69,6 @@
                 }).addClef('treble').addTimeSignature('4/4');
 
                 vf.draw();
-            },
-            refresh() {
-                this.setRandomNote();
-                this.drawNote(this.note);
             }
         },
         mounted() {
