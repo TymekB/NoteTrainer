@@ -4,6 +4,8 @@
 
 
         </div>
+
+        <button v-on:click="refresh">refresh</button>
     </div>
 
 </template>
@@ -66,6 +68,10 @@
 
                 vf.draw();
             },
+            refresh() {
+                this.setRandomNote();
+                this.drawNote(this.note);
+            }
         },
         mounted() {
             this.setRandomNote();
