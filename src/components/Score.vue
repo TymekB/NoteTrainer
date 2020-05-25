@@ -69,11 +69,14 @@
                 }).addClef('treble').addTimeSignature('4/4');
 
                 vf.draw();
+            },
+            drawRandomNote() {
+                this.setRandomNote();
+                this.drawNote(this.note);
             }
         },
         mounted() {
-            this.setRandomNote();
-            this.drawNote(this.note);
+            this.drawRandomNote();
         }
     }
 </script>

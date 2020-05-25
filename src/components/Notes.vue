@@ -1,16 +1,11 @@
 <template>
     <div class="notes">
         <div class="column">
-            <button class="note-btn">C</button>
-            <button class="note-btn">D</button>
-            <button class="note-btn">E</button>
+            <button class="note-btn" v-for="note in notes.slice(0,3)" :key="note">{{note}}</button>
         </div>
 
         <div class="column">
-            <button class="note-btn">F</button>
-            <button class="note-btn">G</button>
-            <button class="note-btn">A</button>
-            <button class="note-btn">B</button>
+            <button class="note-btn" v-for="note in notes.slice(3,notes.length)" :key="note">{{note}}</button>
         </div>
     </div>
 </template>
@@ -18,6 +13,11 @@
 <script>
     export default {
         name: "Notes",
+        data: function() {
+            return {
+                notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+            }
+        }
     }
 </script>
 
