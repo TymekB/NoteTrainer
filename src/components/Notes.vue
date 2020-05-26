@@ -1,13 +1,13 @@
 <template>
     <div class="notes">
         <div class="column">
-            <button class="note-btn" v-for="note in notes.slice(0,3)" :key="note"
+            <button :disabled="disabled" class="note-btn" v-for="note in notes.slice(0,3)" :key="note"
                     v-on:click="checkNote($event, note)">{{note}}
             </button>
         </div>
 
         <div class="column">
-            <button class="note-btn" v-for="note in notes.slice(3,notes.length)" :key="note"
+            <button :disabled="disabled" class="note-btn" v-for="note in notes.slice(3,notes.length)" :key="note"
                     v-on:click="checkNote($event, note)">{{note}}
             </button>
         </div>
@@ -20,21 +20,38 @@
     export default {
         name: "Notes",
         props: ['notes'],
+        data: function() {
+            return {
+                disabled: false
+            }
+        },
         computed: mapGetters(['note']),
         methods: {
-            checkNote(event, note) {
+            clearButtonsStyle() {
+                  const background = '#fdfdfd';
+                  const borderColor = '#d7d7d7';
 
+                  document.querySelectorAll('.note-btn').forEach((el) => {
+                      el.style.background = background;
+                      el.style.borderColor = borderColor;
+                  });
+            },
+            checkNote(event, note) {
                 if (note === this.note.substring(-1, 1)) {
-                    console.log('right');
+
+                    this.disabled = true;
+                    event.target.style.background = '#27ae60';
+                    event.target.style.borderColor = '#258744';
 
                     setTimeout(() => {
+                        this.disabled = false;
+                        this.clearButtonsStyle();
                         this.$emit('next-note');
-                    }, 1000);
+                    }, 850);
                 } else {
-                    console.log('wrong');
+                    event.target.style.background = '#e74c3c';
+                    event.target.style.borderColor = '#b94537';
                 }
-
-
             }
         }
     }
@@ -60,10 +77,19 @@
         border-radius: 3px;
         margin-bottom: 10px;
         outline: none;
+        color: #303030;
+        transition: 0.5s;
     }
 
     button.note-btn:hover {
         background: #f5f5f5;
         cursor: pointer;
     }
+
+    button.note-btn:disabled{
+        background: #fdfdfd;
+        border: 1px solid #d7d7d7;
+        color: #303030;
+    }
+
 </style>
