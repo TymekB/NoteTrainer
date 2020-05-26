@@ -1,11 +1,8 @@
 <template>
     <div>
-        <div id="score">
+        <div id="score"></div>
 
-
-        </div>
-
-        <Notes :notes="notes" v-on:check-note="checkNote"></Notes>
+        <Notes :notes="notes" v-on:next-note="drawRandomNote"></Notes>
     </div>
 
 </template>
@@ -13,6 +10,7 @@
 <script>
     import Vex from 'vexflow';
     import Notes from "./Notes";
+    import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: "Score",
@@ -20,42 +18,14 @@
         data: function () {
             return {
                 elementId: 'score',
-                notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
-                note: null,
-                previousNote: null,
             }
         },
+        computed: mapGetters(['notes', 'note']),
         methods: {
+            ...mapActions(['setRandomNote']),
             redrawScore() {
                 const div = document.querySelector('#' + this.elementId);
                 [].slice.call(div.children).forEach(child => div.removeChild(child));
-            },
-            setRandomNote() {
-                if (this.note !== null) {
-                    this.previousNote = this.note;
-                }
-
-                let note = null;
-
-                do {
-                    const randomNumber = Math.floor(Math.random() * this.notes.length);
-                    note = this.notes[randomNumber];
-
-                    let min = 3;
-                    let max = 6;
-
-                    if (note === 'B') {
-                        min = 2;
-                    }
-
-                    let octave = Math.floor(Math.random() * (max - min)) + min;
-
-                    note = note + octave;
-
-                } while (note === this.previousNote && note !== null);
-
-                this.note = note;
-
             },
             drawNote(note) {
                 this.redrawScore();
@@ -74,17 +44,6 @@
                 this.setRandomNote();
                 this.drawNote(this.note);
             },
-            checkNote(note) {
-                if (note === this.note.substring(-1, 1)) {
-                    alert('right');
-                } else {
-                    alert('wrong');
-                }
-
-                setTimeout(() => {
-                   this.drawRandomNote();
-                }, 1000);
-            }
         },
         mounted() {
             this.drawRandomNote();

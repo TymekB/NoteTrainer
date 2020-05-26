@@ -2,22 +2,41 @@
     <div class="notes">
         <div class="column">
             <button class="note-btn" v-for="note in notes.slice(0,3)" :key="note"
-                    v-on:click="$emit('check-note', note)">{{note}}
+                    v-on:click="checkNote($event, note)">{{note}}
             </button>
         </div>
 
         <div class="column">
             <button class="note-btn" v-for="note in notes.slice(3,notes.length)" :key="note"
-                    v-on:click="$emit('check-note', note)">{{note}}
+                    v-on:click="checkNote($event, note)">{{note}}
             </button>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
+
     export default {
         name: "Notes",
-        props: ['notes']
+        props: ['notes'],
+        computed: mapGetters(['note']),
+        methods: {
+            checkNote(event, note) {
+
+                if (note === this.note.substring(-1, 1)) {
+                    console.log('right');
+
+                    setTimeout(() => {
+                        this.$emit('next-note');
+                    }, 1000);
+                } else {
+                    console.log('wrong');
+                }
+
+
+            }
+        }
     }
 </script>
 

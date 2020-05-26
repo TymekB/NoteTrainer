@@ -1,0 +1,52 @@
+const state = {
+    notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+    note: null,
+    previousNote: null,
+};
+
+const getters = {
+    notes: state => state.notes,
+    note: state => state.note
+};
+
+const actions = {
+    setRandomNote({commit, state}) {
+        if (state.note !== null) {
+            state.previousNote = state.note;
+        }
+
+        let note = null;
+
+        do {
+            const randomNumber = Math.floor(Math.random() * state.notes.length);
+            note = state.notes[randomNumber];
+
+            let min = 3;
+            let max = 6;
+
+            if (note === 'B') {
+                min = 2;
+            }
+
+            let octave = Math.floor(Math.random() * (max - min)) + min;
+
+            note = note + octave;
+
+        } while (note === state.previousNote && note !== null);
+
+        commit('setNote', note);
+    },
+};
+
+const mutations = {
+    setNote: (state, note) => {
+        state.note = note;
+    }
+};
+
+export default {
+    state,
+    getters,
+    actions,
+    mutations
+};
