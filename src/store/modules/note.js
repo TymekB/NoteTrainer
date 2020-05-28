@@ -1,18 +1,24 @@
 const state = {
     notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
     note: null,
-    previousNote: null,
+    previousNotes: [],
 };
 
 const getters = {
     notes: state => state.notes,
-    note: state => state.note
+    note: state => state.note,
+    previousNotes: state => state.previousNotes.sort()
 };
 
 const actions = {
     setRandomNote({commit, state}) {
+
+        if(state.previousNotes.length >= 28) {
+            return;
+        }
+
         if (state.note !== null) {
-            state.previousNote = state.note;
+            state.previousNotes.push(state.note);
         }
 
         let note = null;
@@ -22,7 +28,7 @@ const actions = {
             note = state.notes[randomNumber];
 
             let min = 3;
-            let max = 6;
+            let max = 7;
 
             if (note === 'B') {
                 min = 2;
@@ -32,7 +38,7 @@ const actions = {
 
             note = note + octave;
 
-        } while (note === state.previousNote && note !== null);
+        } while (state.previousNotes.includes(note) && note !== null);
 
         commit('setNote', note);
     },

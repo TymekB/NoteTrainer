@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h2>{{previousNotes.length}}/29</h2>
         <div id="score"></div>
 
         <Notes :notes="notes" v-on:next-note="drawRandomNote"></Notes>
@@ -20,7 +21,7 @@
                 elementId: 'score',
             }
         },
-        computed: mapGetters(['notes', 'note']),
+        computed: mapGetters(['notes', 'note', 'previousNotes']),
         methods: {
             ...mapActions(['setRandomNote']),
             redrawScore() {
@@ -47,9 +48,16 @@
         },
         mounted() {
             this.drawRandomNote();
+
         }
     }
 </script>
 
 <style scoped>
+    h2 {
+        font-weight: 300;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
 </style>
