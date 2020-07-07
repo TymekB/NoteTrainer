@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h2>{{previousNotes.length}}/29</h2>
+        <h2>{{previousNotes.length}}/28</h2>
+        Clef: {{clef}}
         <div id="score"></div>
 
         <Notes :notes="notes" v-on:next-note="drawRandomNote"></Notes>
@@ -21,23 +22,23 @@
                 elementId: 'score',
             }
         },
-        computed: mapGetters(['notes', 'note', 'previousNotes']),
+        computed: mapGetters(['notes', 'note', 'previousNotes', 'clef']),
         methods: {
-            ...mapActions(['setRandomNote']),
-            redrawScore() {
+            ...mapActions(['setRandomNote', 'setClef']),
+            clearScore() {
                 const div = document.querySelector('#' + this.elementId);
                 [].slice.call(div.children).forEach(child => div.removeChild(child));
             },
             drawNote(note) {
-                this.redrawScore();
+                this.clearScore();
 
                 const vf = new Vex.Flow.Factory({renderer: {elementId: this.elementId, height: 150, width: 300}});
                 const score = vf.EasyScore();
                 const system = vf.System();
 
                 system.addStave({
-                    voices: [score.voice(score.notes(note + '/1'))]
-                }).addClef('treble').addTimeSignature('4/4');
+                    voices: [score.voice(score.notes(note + '/1', {clef: 'bass'}))]
+                }).addClef('bass').addTimeSignature('4/4');
 
                 vf.draw();
             },
@@ -47,8 +48,8 @@
             },
         },
         mounted() {
+            this.setClef('bass');
             this.drawRandomNote();
-
         }
     }
 </script>
@@ -60,4 +61,6 @@
         padding: 0;
         text-align: center;
     }
+
+
 </style>

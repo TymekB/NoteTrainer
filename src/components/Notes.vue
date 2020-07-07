@@ -37,6 +37,7 @@
                   });
             },
             checkNote(event, note) {
+                console.log(note);
                 if (note === this.note.substring(-1, 1)) {
 
                     this.disabled = true;
