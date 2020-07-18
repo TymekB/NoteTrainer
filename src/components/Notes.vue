@@ -53,6 +53,7 @@
 
     .notes {
         margin-left: 10px;
+        margin-top: 20px;
     }
 
     .column {

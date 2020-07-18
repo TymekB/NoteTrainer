@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        <h1 class="logo">Note<span style="color: #42b883; font-weight: bold">Trainer</span></h1>
         <Score></Score>
     </div>
 </template>
@@ -29,5 +30,10 @@
 
     button {
         font-family: Avenir, Helvetica, Arial, sans-serif;
+    }
+
+    h1.logo {
+        font-weight: 300;
+        text-align: center;
     }
 </style>

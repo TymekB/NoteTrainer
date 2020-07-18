@@ -1,10 +1,9 @@
 <template>
     <div>
         <div id="clef" v-if="!clefChosen">
-            Choose clef: <br>
-            <button v-on:click="chooseClef('treble')">Treble</button>
-            or
-            <button v-on:click="chooseClef('bass')">Bass</button>
+            Choose clef
+            <button v-on:click="chooseClef('treble')" class="clef-btn">Treble</button>
+            <button v-on:click="chooseClef('bass')" class="clef-btn">Bass</button>
         </div>
 
         <div id="score" v-if="clefChosen">
@@ -76,5 +75,28 @@
         margin: 0;
         padding: 0;
         text-align: center;
+    }
+
+    #clef {
+        text-align: center;
+    }
+
+    .clef-btn {
+        padding: 6px;
+        font-size: 14px;
+        width: 100%;
+        border-radius: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        outline: none;
+        color: #303030;
+        transition: 0.5s;
+        background-color: #fdfdfd;
+        border: 1px solid #d7d7d7;
+    }
+
+    .clef-btn:hover {
+        background: #f5f5f5;
+        cursor: pointer;
     }
 </style>
