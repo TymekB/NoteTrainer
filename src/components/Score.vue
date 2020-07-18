@@ -9,7 +9,6 @@
 
         <div id="score" v-if="clefChosen">
             <h2>{{previousNotes.length}}/28</h2>
-            Clef: {{clef}}
             <div id="easy-score"></div>
 
             <Notes :notes="notes" v-on:next-note="drawRandomNote"></Notes>
@@ -22,13 +21,13 @@
     import Vex from 'vexflow';
     import Notes from "./Notes";
     import {mapGetters, mapActions} from 'vuex';
+    import $ from 'jquery';
 
     export default {
         name: "Score",
         components: {Notes},
         data: function () {
             return {
-                elementId: 'easy-score',
                 clefChosen: false
             }
         },
@@ -36,13 +35,16 @@
         methods: {
             ...mapActions(['setRandomNote', 'setClef']),
             clearScore() {
-                const div = document.querySelector('#' + this.elementId);
-                [].slice.call(div.children).forEach(child => div.removeChild(child));
+                $('#easy-score').empty();
             },
             drawNote(note) {
                 this.clearScore();
 
-                const vf = new Vex.Flow.Factory({renderer: {elementId: this.elementId, height: 150, width: 300}});
+                const vf = new Vex.Flow.Factory({
+                    renderer: {
+                        elementId: 'easy-score', height: 150, width: 300
+                    }
+                });
                 const score = vf.EasyScore();
                 const system = vf.System();
 
@@ -64,9 +66,6 @@
                     this.drawRandomNote();
                 }, 10);
             }
-        },
-        mounted() {
-
         }
     }
 </script>

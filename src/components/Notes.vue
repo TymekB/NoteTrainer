@@ -1,7 +1,7 @@
 <template>
     <div class="notes">
         <div class="column" v-for="i in 2" :key="i">
-            <button :disabled="disabled" class="note-btn"
+            <button :disabled="disabled" class="note-btn note-btn-default"
                     v-for="note in notes.slice((i-1)*3, Math.floor(notes.length / (2-(i-1))))" :key="note"
                     v-on:click="checkNote($event, note)">{{note}}
             </button>
@@ -11,46 +11,38 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import $ from 'jquery';
 
     export default {
         name: "Notes",
         props: ['notes'],
-        data: function () {
-            return {
-                disabled: false
-            }
-        },
         computed: mapGetters(['note', 'previousNotes']),
         methods: {
-            clearButtonsStyle() {
-                const background = '#fdfdfd';
-                const borderColor = '#d7d7d7';
-
-                document.querySelectorAll('.note-btn').forEach((el) => {
-                    el.style.background = background;
-                    el.style.borderColor = borderColor;
-                });
-            },
             checkNote(event, note) {
-
-                if(this.previousNotes.length >= 28) {
+                if (this.previousNotes.length >= 28) {
                     return;
                 }
 
                 if (note === this.note.substring(-1, 1)) {
 
-                    this.disabled = true;
-                    event.target.style.background = '#27ae60';
-                    event.target.style.borderColor = '#258744';
+                    $(event.target).removeClass('note-btn-default')
+                        .addClass('note-btn-success');
+
+                    $('.note-btn').attr('disabled', true);
 
                     setTimeout(() => {
-                        this.disabled = false;
-                        this.clearButtonsStyle();
+                        $('.note-btn').attr('disabled', false)
+                            .removeClass('note-btn-success note-btn-danger')
+                            .addClass('note-btn-default');
+
                         this.$emit('next-note');
+
                     }, 850);
+
                 } else {
-                    event.target.style.background = '#e74c3c';
-                    event.target.style.borderColor = '#b94537';
+                    $(event.target).removeClass('note-btn-default')
+                        .addClass('note-btn-danger')
+                        .attr('disabled', true);
                 }
             }
         }
@@ -72,8 +64,6 @@
         padding: 6px;
         font-size: 14px;
         width: 50px;
-        background: #fdfdfd;
-        border: 1px solid #d7d7d7;
         border-radius: 3px;
         margin-bottom: 10px;
         outline: none;
@@ -81,15 +71,24 @@
         transition: 0.5s;
     }
 
-    button.note-btn:hover {
+    .note-btn-default {
+        background-color: #fdfdfd;
+        border: 1px solid #d7d7d7;
+    }
+
+    button.note-btn-default:hover {
         background: #f5f5f5;
         cursor: pointer;
     }
 
-    button.note-btn:disabled {
-        background: #fdfdfd;
-        border: 1px solid #d7d7d7;
-        color: #303030;
+    button.note-btn-success {
+        background: #27ae60;
+        border-color: #258744;
+    }
+
+    button.note-btn-danger {
+        background: #f04c3c;
+        border-color: #b94537;
     }
 
 </style>
