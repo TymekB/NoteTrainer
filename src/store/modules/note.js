@@ -15,12 +15,12 @@ const getters = {
 const actions = {
     setRandomNote({commit, state}) {
 
-        if (state.previousNotes.length >= 28) {
-            return;
+        if (state.note !== null && state.previousNotes.length < 28) {
+            state.previousNotes.push(state.note);
         }
 
-        if (state.note !== null) {
-            state.previousNotes.push(state.note);
+        if (state.previousNotes.length >= 28) {
+            return;
         }
 
         let note = null;

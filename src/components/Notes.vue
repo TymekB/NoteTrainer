@@ -20,7 +20,7 @@
                 disabled: false
             }
         },
-        computed: mapGetters(['note']),
+        computed: mapGetters(['note', 'previousNotes']),
         methods: {
             clearButtonsStyle() {
                 const background = '#fdfdfd';
@@ -32,6 +32,11 @@
                 });
             },
             checkNote(event, note) {
+
+                if(this.previousNotes.length >= 28) {
+                    return;
+                }
+
                 if (note === this.note.substring(-1, 1)) {
 
                     this.disabled = true;

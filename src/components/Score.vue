@@ -64,6 +64,9 @@
                     this.drawRandomNote();
                 }, 10);
             }
+        },
+        mounted() {
+
         }
     }
 </script>
