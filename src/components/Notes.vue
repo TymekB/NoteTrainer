@@ -1,13 +1,8 @@
 <template>
     <div class="notes">
-        <div class="column">
-            <button :disabled="disabled" class="note-btn" v-for="note in notes.slice(0,3)" :key="note"
-                    v-on:click="checkNote($event, note)">{{note}}
-            </button>
-        </div>
-
-        <div class="column">
-            <button :disabled="disabled" class="note-btn" v-for="note in notes.slice(3,notes.length)" :key="note"
+        <div class="column" v-for="i in 2" :key="i">
+            <button :disabled="disabled" class="note-btn"
+                    v-for="note in notes.slice((i-1)*3, Math.floor(notes.length / (2-(i-1))))" :key="note"
                     v-on:click="checkNote($event, note)">{{note}}
             </button>
         </div>
@@ -20,7 +15,7 @@
     export default {
         name: "Notes",
         props: ['notes'],
-        data: function() {
+        data: function () {
             return {
                 disabled: false
             }
@@ -28,13 +23,13 @@
         computed: mapGetters(['note']),
         methods: {
             clearButtonsStyle() {
-                  const background = '#fdfdfd';
-                  const borderColor = '#d7d7d7';
+                const background = '#fdfdfd';
+                const borderColor = '#d7d7d7';
 
-                  document.querySelectorAll('.note-btn').forEach((el) => {
-                      el.style.background = background;
-                      el.style.borderColor = borderColor;
-                  });
+                document.querySelectorAll('.note-btn').forEach((el) => {
+                    el.style.background = background;
+                    el.style.borderColor = borderColor;
+                });
             },
             checkNote(event, note) {
                 console.log(note);
@@ -87,7 +82,7 @@
         cursor: pointer;
     }
 
-    button.note-btn:disabled{
+    button.note-btn:disabled {
         background: #fdfdfd;
         border: 1px solid #d7d7d7;
         color: #303030;

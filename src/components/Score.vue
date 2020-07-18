@@ -2,7 +2,7 @@
     <div>
         <h2>{{previousNotes.length}}/28</h2>
         Clef: {{clef}}
-        <div id="score"></div>
+        <div id="easy-score"></div>
 
         <Notes :notes="notes" v-on:next-note="drawRandomNote"></Notes>
     </div>
@@ -19,7 +19,8 @@
         components: {Notes},
         data: function () {
             return {
-                elementId: 'score',
+                elementId: 'easy-score',
+                clefChosen: false
             }
         },
         computed: mapGetters(['notes', 'note', 'previousNotes', 'clef']),
