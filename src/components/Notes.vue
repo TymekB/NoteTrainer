@@ -27,8 +27,9 @@
 
                 if (note === this.note.substring(-1, 1)) {
 
-                    this.setAnswer({correct: true, note: this.note});
-
+                    if(!this.answers.wrong.find((note) => note === this.note)) {
+                        this.setAnswer({correct: true, note: this.note});
+                    }
 
                     $(event.target).removeClass('note-btn-default')
                         .addClass('note-btn-success');
