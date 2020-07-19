@@ -4,8 +4,8 @@ const state = {
     previousNotes: [],
     clef: 'treble',
     answers: {
-        correct: [],
-        wrong: []
+        correct: ['B5','C5','E1'],
+        wrong: ['E2', 'C3']
     }
 };
 

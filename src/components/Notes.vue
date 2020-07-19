@@ -1,7 +1,8 @@
 <template>
     <div class="notes">
+        {{test}}
         <div class="column" v-for="i in 2" :key="i">
-            <button :disabled="disabled" class="note-btn note-btn-default"
+            <button class="note-btn note-btn-default"
                     v-for="note in notes.slice((i-1)*3, Math.floor(notes.length / (2-(i-1))))" :key="note"
                     v-on:click="checkNote($event, note)">{{note}}
             </button>
@@ -16,7 +17,9 @@
     export default {
         name: "Notes",
         props: ['notes'],
-        computed: mapGetters(['note', 'previousNotes']),
+        computed: {
+            ...mapGetters(['note', 'previousNotes', 'answers'])
+        },
         methods: {
             ...mapActions(['setAnswer']),
             checkNote(event, note) {
@@ -34,14 +37,13 @@
                     $('.note-btn').attr('disabled', true);
 
                     setTimeout(() => {
+
                         $('.note-btn').attr('disabled', false)
                             .removeClass('note-btn-success note-btn-danger')
                             .addClass('note-btn-default');
 
                         this.$emit('next-note');
-
                     }, 850);
-
                 } else {
                     this.setAnswer({correct: false, note: this.note});
 

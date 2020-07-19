@@ -12,6 +12,42 @@
 
             <Notes :notes="notes" v-on:next-note="drawRandomNote"></Notes>
         </div>
+
+        <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+            <div class="modal-overlay" tabindex="-1" data-micromodal-close>
+                <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                    <header class="modal-header">
+                        <h2 class="modal-title" id="modal-1-title">
+                            Summary
+                        </h2>
+                        <button class="modal-close" aria-label="Close modal" data-micromodal-close></button>
+                    </header>
+                    <main class="modal-content" id="modal-1-content">
+                        <p>
+                            <span style="color: #42b883; font-weight: bold">Correct answers:</span> {{this.answers.correct.length}}
+                            ({{correctAnswersPercentage}}%)
+                            <br>
+                            <template v-for="(note, index) in this.answers.correct">
+                                {{note}}
+                                <span v-if="answers.correct.length-1 !== index" v-bind:key="index">,</span>
+                            </template>
+                        </p>
+                        <p>
+                            <span style="color: #b84242; font-weight: bold">Wrong answers:</span> {{this.answers.wrong.length}}
+                            ({{wrongAnswersPercentage}}%)
+                            <br>
+                            <template v-for="(note, index) in this.answers.wrong">
+                                {{note}}
+                                <span v-if="answers.wrong.length-1 !== index" v-bind:key="index">,</span>
+                            </template>
+                        </p>
+                    </main>
+                    <footer class="modal-footer">
+
+                    </footer>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -20,6 +56,7 @@
     import Notes from "./Notes";
     import {mapGetters, mapActions} from 'vuex';
     import $ from 'jquery';
+    import microModal from 'micromodal';
 
     export default {
         name: "Score",
@@ -29,7 +66,18 @@
                 clefChosen: false
             }
         },
-        computed: mapGetters(['notes', 'note', 'previousNotes', 'clef', 'answers']),
+        computed: {
+            ...mapGetters(['notes', 'note', 'previousNotes', 'clef', 'answers']),
+            answersSum: function() {
+                return this.answers.correct.length + this.answers.wrong.length;
+            },
+            correctAnswersPercentage: function() {
+                return Math.floor((this.answers.correct.length / (this.answersSum)) * 100);
+            },
+            wrongAnswersPercentage: function() {
+                return Math.floor((this.answers.wrong.length / (this.answersSum)) * 100);
+            }
+        },
         methods: {
             ...mapActions(['setRandomNote', 'setClef']),
             clearScore() {
@@ -55,13 +103,19 @@
             drawRandomNote() {
                 this.setRandomNote();
                 this.drawNote(this.note);
+
+                if(this.previousNotes.length >= 28) {
+                    microModal.show('modal-1', {});
+                }
             },
             chooseClef(clef) {
                 this.setClef(clef);
                 this.clefChosen = true;
 
                 setTimeout(() => {
-                    this.drawRandomNote();
+                    for(let i = 0; i <= 26; i++) {
+                        this.drawRandomNote();
+                    }
                 }, 10);
             }
         }
@@ -69,7 +123,7 @@
 </script>
 
 <style scoped>
-    h2 {
+    #score h2 {
         font-weight: 300;
         margin: 0;
         padding: 0;
