@@ -13,7 +13,6 @@
             <Notes :notes="notes" v-on:next-note="drawRandomNote"></Notes>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -30,7 +29,7 @@
                 clefChosen: false
             }
         },
-        computed: mapGetters(['notes', 'note', 'previousNotes', 'clef']),
+        computed: mapGetters(['notes', 'note', 'previousNotes', 'clef', 'answers']),
         methods: {
             ...mapActions(['setRandomNote', 'setClef']),
             clearScore() {

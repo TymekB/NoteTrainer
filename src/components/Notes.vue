@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
     import $ from 'jquery';
 
     export default {
@@ -18,12 +18,15 @@
         props: ['notes'],
         computed: mapGetters(['note', 'previousNotes']),
         methods: {
+            ...mapActions(['setAnswer']),
             checkNote(event, note) {
                 if (this.previousNotes.length >= 28) {
                     return;
                 }
 
                 if (note === this.note.substring(-1, 1)) {
+
+                    this.setAnswer({correct: true, note: this.note});
 
                     $(event.target).removeClass('note-btn-default')
                         .addClass('note-btn-success');
@@ -40,6 +43,8 @@
                     }, 850);
 
                 } else {
+                    this.setAnswer({correct: false, note: this.note});
+
                     $(event.target).removeClass('note-btn-default')
                         .addClass('note-btn-danger')
                         .attr('disabled', true);
