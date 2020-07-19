@@ -1,6 +1,5 @@
 <template>
     <div class="notes">
-        {{test}}
         <div class="column" v-for="i in 2" :key="i">
             <button class="note-btn note-btn-default"
                     v-for="note in notes.slice((i-1)*3, Math.floor(notes.length / (2-(i-1))))" :key="note"
@@ -16,9 +15,8 @@
 
     export default {
         name: "Notes",
-        props: ['notes'],
         computed: {
-            ...mapGetters(['note', 'previousNotes', 'answers'])
+            ...mapGetters(['notes', 'note', 'previousNotes'])
         },
         methods: {
             ...mapActions(['setAnswer']),
