@@ -10,7 +10,7 @@
                 </header>
                 <main class="modal-content" id="modal-1-content">
                     <p>
-                        <span style="color: #42b883; font-weight: bold">Correct answers:</span>
+                        <span class="correct">Correct answers:</span>
                         {{this.answers.correct.length}}
                         ({{correctAnswersPercentage}}%)
                         <br>
@@ -20,7 +20,7 @@
                         </template>
                     </p>
                     <p>
-                        <span style="color: #b84242; font-weight: bold">Wrong answers:</span>
+                        <span class="wrong">Wrong answers:</span>
                         {{this.answers.wrong.length}}
                         ({{wrongAnswersPercentage}}%)
                         <br>

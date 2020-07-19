@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <h1 class="logo">Note<span style="color: #42b883; font-weight: bold">Trainer</span></h1>
+        <h1 class="logo">Note<span class="correct">Trainer</span></h1>
         <Score></Score>
     </div>
 </template>
@@ -35,6 +35,16 @@
     h1.logo {
         font-weight: 300;
         text-align: center;
+    }
+
+    .correct {
+        color: #42b883;
+        font-weight: bold;
+    }
+
+    .wrong {
+        color: #b84242;
+        font-weight: bold;
     }
 
     .modal {

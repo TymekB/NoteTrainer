@@ -4,8 +4,8 @@ const state = {
     previousNotes: [],
     clef: 'treble',
     answers: {
-        correct: ['B5','C5','E1'],
-        wrong: ['E2', 'C3']
+        correct: [],
+        wrong: []
     }
 };
 
@@ -20,7 +20,7 @@ const getters = {
 const actions = {
     setRandomNote({commit, state}) {
 
-        if (state.note !== null && state.previousNotes.length < 28) {
+        if (state.note !== null) {
             state.previousNotes.push(state.note);
         }
 
@@ -65,7 +65,6 @@ const actions = {
         commit('setNote', note);
     },
     setAnswer({commit}, {correct, note}) {
-        console.log(correct);
         if(correct) {
             commit('setCorrectAnswer', note);
         } else {
@@ -77,6 +76,9 @@ const actions = {
         clef = clef === 'treble' ? 'treble' : 'bass';
 
         commit('setClef', clef)
+    },
+    reset({commit}) {
+        commit('reset');
     }
 };
 
@@ -92,6 +94,12 @@ const mutations = {
     },
     setWrongAnswer: (state, note) => {
         state.answers.wrong.push(note);
+    },
+    reset: (state) => {
+        state.note = null;
+        state.previousNotes = [];
+        state.answers.correct = [];
+        state.answers.wrong = [];
     }
 };
 

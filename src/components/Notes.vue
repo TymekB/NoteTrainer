@@ -16,7 +16,7 @@
     export default {
         name: "Notes",
         computed: {
-            ...mapGetters(['notes', 'note', 'previousNotes'])
+            ...mapGetters(['notes', 'note', 'previousNotes', 'answers'])
         },
         methods: {
             ...mapActions(['setAnswer']),
@@ -28,6 +28,7 @@
                 if (note === this.note.substring(-1, 1)) {
 
                     this.setAnswer({correct: true, note: this.note});
+
 
                     $(event.target).removeClass('note-btn-default')
                         .addClass('note-btn-success');
