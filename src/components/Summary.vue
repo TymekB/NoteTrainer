@@ -29,6 +29,7 @@
                             <span v-if="answers.wrong.length-1 !== index" v-bind:key="index">,</span>
                         </template>
                     </p>
+                    <p><b>Time: </b>{{timeInSeconds}} s</p>
                 </main>
             </div>
         </div>
@@ -40,8 +41,12 @@
 
     export default {
         name: "Summary",
+        props: ['time'],
         computed: {
             ...mapGetters(['answers']),
+            timeInSeconds: function() {
+                return (this.time / 1000).toFixed(2);
+            },
             answersSum: function() {
                 return this.answers.correct.length + this.answers.wrong.length;
             },
@@ -51,6 +56,9 @@
             wrongAnswersPercentage: function() {
                 return Math.round((this.answers.wrong.length / (this.answersSum)) * 100);
             }
+        },
+        mounted() {
+            console.log(this.time);
         }
     }
 </script>

@@ -12,7 +12,7 @@
             <Notes v-on:next-note="drawRandomNote"></Notes>
         </div>
 
-        <Summary></Summary>
+        <Summary v-if="time" :time="time"></Summary>
     </div>
 </template>
 
@@ -23,13 +23,16 @@
     import $ from 'jquery';
     import microModal from 'micromodal';
     import Summary from "./Summary";
+    import Stopwatch from 'statman-stopwatch';
 
     export default {
         name: "Score",
         components: {Summary, Notes},
         data: function () {
             return {
-                clefChosen: false
+                clefChosen: false,
+                stopwatch: new Stopwatch(),
+                time: false
             }
         },
         computed: mapGetters(['note', 'previousNotes', 'clef', 'max']),
@@ -60,14 +63,20 @@
                 this.drawNote(this.note);
 
                 if (this.previousNotes.length >= this.max) {
-                    microModal.show('modal-1', {
-                        onClose: this.restart
-                    });
+                    this.time = this.stopwatch.stop();
+
+                    setTimeout(() => {
+                        microModal.show('modal-1', {
+                            onClose: this.restart,
+                        });
+                    }, 250);
                 }
             },
             chooseClef(clef) {
                 this.setClef(clef);
                 this.clefChosen = true;
+
+                this.stopwatch.start();
 
                 setTimeout(() => {
                     this.drawRandomNote();
