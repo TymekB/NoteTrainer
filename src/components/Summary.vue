@@ -30,9 +30,6 @@
                         </template>
                     </p>
                 </main>
-                <footer class="modal-footer">
-
-                </footer>
             </div>
         </div>
     </div>
@@ -49,10 +46,10 @@
                 return this.answers.correct.length + this.answers.wrong.length;
             },
             correctAnswersPercentage: function() {
-                return Math.floor((this.answers.correct.length / (this.answersSum)) * 100);
+                return Math.round((this.answers.correct.length / (this.answersSum)) * 100);
             },
             wrongAnswersPercentage: function() {
-                return Math.floor((this.answers.wrong.length / (this.answersSum)) * 100);
+                return Math.round((this.answers.wrong.length / (this.answersSum)) * 100);
             }
         }
     }

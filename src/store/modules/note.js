@@ -6,7 +6,8 @@ const state = {
     answers: {
         correct: [],
         wrong: []
-    }
+    },
+    max: 29
 };
 
 const getters = {
@@ -14,7 +15,8 @@ const getters = {
     note: state => state.note,
     previousNotes: state => state.previousNotes.sort(),
     clef: state => state.clef,
-    answers: state => state.answers
+    answers: state => state.answers,
+    max: state => state.max
 };
 
 const actions = {
@@ -24,7 +26,7 @@ const actions = {
             state.previousNotes.push(state.note);
         }
 
-        if (state.previousNotes.length >= 28) {
+        if (state.previousNotes.length >= state.max) {
             return;
         }
 

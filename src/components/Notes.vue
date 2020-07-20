@@ -21,7 +21,7 @@
         methods: {
             ...mapActions(['setAnswer']),
             checkNote(event, note) {
-                if (this.previousNotes.length >= 28) {
+                if (this.previousNotes.length >= this.max) {
                     return;
                 }
 
@@ -45,6 +45,7 @@
                         this.$emit('next-note');
                     }, 850);
                 } else {
+
                     this.setAnswer({correct: false, note: this.note});
 
                     $(event.target).removeClass('note-btn-default')

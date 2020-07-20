@@ -7,9 +7,8 @@
         </div>
 
         <div id="score" v-if="clefChosen">
-            <h2>{{previousNotes.length}}/28</h2>
+            <h2>{{previousNotes.length}}/{{max}}</h2>
             <div id="easy-score"></div>
-            {{this.answers}}
             <Notes v-on:next-note="drawRandomNote"></Notes>
         </div>
 
@@ -33,7 +32,7 @@
                 clefChosen: false
             }
         },
-        computed: mapGetters(['note', 'previousNotes', 'clef', 'answers']),
+        computed: mapGetters(['note', 'previousNotes', 'clef', 'max']),
         methods: {
             ...mapActions(['setRandomNote', 'setClef', 'reset']),
             clearScore() {
@@ -60,7 +59,7 @@
                 this.setRandomNote();
                 this.drawNote(this.note);
 
-                if (this.previousNotes.length >= 28) {
+                if (this.previousNotes.length >= this.max) {
                     microModal.show('modal-1', {
                         onClose: this.restart
                     });
@@ -71,9 +70,11 @@
                 this.clefChosen = true;
 
                 setTimeout(() => {
-                    for(let i = 0; i <= 26; i++) {
-                        this.drawRandomNote();
-                    }
+                    this.drawRandomNote();
+
+                    // for(let i = 0; i <= 25; i++) {
+                    //     this.drawRandomNote();
+                    // }
                 }, 10);
             },
             restart() {
