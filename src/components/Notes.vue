@@ -16,7 +16,7 @@
     export default {
         name: "Notes",
         computed: {
-            ...mapGetters(['notes', 'note', 'previousNotes', 'answers'])
+            ...mapGetters(['notes', 'note', 'previousNotes'])
         },
         methods: {
             ...mapActions(['setAnswer']),
@@ -26,10 +26,7 @@
                 }
 
                 if (note === this.note.substring(-1, 1)) {
-
-                    if (!this.answers.wrong.find((note) => note === this.note)) {
-                        this.setAnswer({correct: true, note: this.note});
-                    }
+                    this.setAnswer({correct: true, answer: this.note});
 
                     $(event.target).removeClass('note-btn-default')
                         .addClass('note-btn-success');
@@ -44,9 +41,7 @@
                         this.$emit('next-note');
                     }, 850);
                 } else {
-                    if (!this.answers.wrong.find((note) => note === this.note)) {
-                        this.setAnswer({correct: false, note: this.note});
-                    }
+                    this.setAnswer({correct: false, answer: this.note});
 
                     $(event.target).removeClass('note-btn-default')
                         .addClass('note-btn-danger')

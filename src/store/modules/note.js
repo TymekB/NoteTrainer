@@ -66,11 +66,11 @@ const actions = {
 
         commit('setNote', note);
     },
-    setAnswer({commit}, {correct, note}) {
+    setAnswer({commit}, {correct, answer}) {
         if(correct) {
-            commit('setCorrectAnswer', note);
+            commit('setCorrectAnswer', answer);
         } else {
-            commit('setWrongAnswer', note);
+            commit('setWrongAnswer', answer);
         }
     },
     setClef({commit}, clef) {
@@ -90,11 +90,15 @@ const mutations = {
     setClef: (state, clef) => {
         state.clef = clef;
     },
-    setCorrectAnswer: (state, note) => {
-        state.answers.correct.push(note);
+    setCorrectAnswer: (state, answer) => {
+        if(!state.answers.wrong.find((note) => note === answer)) {
+            state.answers.correct.push(answer);
+        }
     },
-    setWrongAnswer: (state, note) => {
-        state.answers.wrong.push(note);
+    setWrongAnswer: (state, answer) => {
+        if(!state.answers.wrong.find((note) => note === answer)) {
+            state.answers.wrong.push(answer);
+        }
     },
     reset: (state) => {
         state.note = null;
