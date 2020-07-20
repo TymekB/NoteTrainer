@@ -1,5 +1,7 @@
+import noteService from "../../services/note";
+
 const state = {
-    notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+    notes: noteService.notes,
     note: null,
     previousNotes: [],
     clef: 'treble',
@@ -13,7 +15,7 @@ const state = {
 const getters = {
     notes: state => state.notes,
     note: state => state.note,
-    previousNotes: state => state.previousNotes.sort(),
+    previousNotes: state => state.previousNotes,
     clef: state => state.clef,
     answers: state => state.answers,
     max: state => state.max
@@ -21,7 +23,6 @@ const getters = {
 
 const actions = {
     setRandomNote({commit, state}) {
-
         if (state.note !== null) {
             state.previousNotes.push(state.note);
         }
@@ -33,36 +34,9 @@ const actions = {
         let note = null;
 
         do {
-            const randomNumber = Math.floor(Math.random() * state.notes.length);
-            note = state.notes[randomNumber];
+            note = noteService.getRandomNote(state.clef);
 
-            let min = null;
-            let max = null;
-
-            if (state.clef === 'treble') {
-                min = 3;
-                max = 7;
-
-                if (note === 'B') {
-                    min = 2;
-                }
-            } else {
-                min = 1;
-                max = 5;
-
-                if (note === 'C') {
-                    max = 6;
-                    min = 2;
-                } else if (note === 'D') {
-                    max = 6;
-                }
-            }
-
-            let octave = Math.floor(Math.random() * (max - min)) + min;
-
-            note = note + octave;
-
-        } while (state.previousNotes.includes(note) && note !== null);
+        } while (state.previousNotes.includes(note));
 
         commit('setNote', note);
     },

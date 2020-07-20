@@ -39,7 +39,7 @@
                             .addClass('note-btn-default');
 
                         this.$emit('next-note');
-                    }, 850);
+                    }, 500);
                 } else {
                     this.setAnswer({correct: false, answer: this.note});
 
