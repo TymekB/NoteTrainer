@@ -74,7 +74,6 @@ const actions = {
         }
     },
     setClef({commit}, clef) {
-
         clef = clef === 'treble' ? 'treble' : 'bass';
 
         commit('setClef', clef)

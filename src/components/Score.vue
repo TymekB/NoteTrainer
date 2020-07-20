@@ -70,11 +70,11 @@
                 this.clefChosen = true;
 
                 setTimeout(() => {
-                    this.drawRandomNote();
+                    // this.drawRandomNote();
 
-                    // for(let i = 0; i <= 25; i++) {
-                    //     this.drawRandomNote();
-                    // }
+                    for(let i = 0; i <= 25; i++) {
+                        this.drawRandomNote();
+                    }
                 }, 10);
             },
             restart() {

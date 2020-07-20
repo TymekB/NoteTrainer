@@ -27,7 +27,7 @@
 
                 if (note === this.note.substring(-1, 1)) {
 
-                    if(!this.answers.wrong.find((note) => note === this.note)) {
+                    if (!this.answers.wrong.find((note) => note === this.note)) {
                         this.setAnswer({correct: true, note: this.note});
                     }
 
@@ -37,7 +37,6 @@
                     $('.note-btn').attr('disabled', true);
 
                     setTimeout(() => {
-
                         $('.note-btn').attr('disabled', false)
                             .removeClass('note-btn-success note-btn-danger')
                             .addClass('note-btn-default');
@@ -45,8 +44,9 @@
                         this.$emit('next-note');
                     }, 850);
                 } else {
-
-                    this.setAnswer({correct: false, note: this.note});
+                    if (!this.answers.wrong.find((note) => note === this.note)) {
+                        this.setAnswer({correct: false, note: this.note});
+                    }
 
                     $(event.target).removeClass('note-btn-default')
                         .addClass('note-btn-danger')
