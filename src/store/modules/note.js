@@ -34,8 +34,8 @@ const actions = {
         let note = null;
 
         do {
-            note = noteService.getRandomNote(state.clef);
 
+            note = noteService.getRandomNote(state.clef);
         } while (state.previousNotes.includes(note));
 
         commit('setNote', note);

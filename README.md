@@ -1,4 +1,4 @@
-# note-checker
+# NoteTrainer
 
 ## Project setup
 ```

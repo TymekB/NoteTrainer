@@ -29,7 +29,8 @@
                             <span v-if="answers.wrong.length-1 !== index" v-bind:key="index">,</span>
                         </template>
                     </p>
-                    <p><b>Time: </b>{{timeInSeconds}} s</p>
+                    <p>Time: {{timeInSeconds}} s</p>
+                    <p v-if="bestScore"><b>Best score: </b>{{bestScore}} s</p>
                 </main>
             </div>
         </div>
@@ -42,23 +43,38 @@
     export default {
         name: "Summary",
         props: ['time'],
+        data: function() {
+            return {
+                bestScore: null
+            }
+        },
         computed: {
             ...mapGetters(['answers']),
-            timeInSeconds: function() {
+            timeInSeconds: function () {
                 return (this.time / 1000).toFixed(2);
             },
-            answersSum: function() {
+            answersSum: function () {
                 return this.answers.correct.length + this.answers.wrong.length;
             },
-            correctAnswersPercentage: function() {
+            correctAnswersPercentage: function () {
                 return Math.round((this.answers.correct.length / (this.answersSum)) * 100);
             },
-            wrongAnswersPercentage: function() {
+            wrongAnswersPercentage: function () {
                 return Math.round((this.answers.wrong.length / (this.answersSum)) * 100);
             }
         },
+        methods: {
+            setBestScore() {
+                const previousScore = localStorage.getItem('bestScore');
+
+                if(previousScore === null || this.timeInSeconds < parseInt(previousScore)) {
+                    this.bestScore = this.timeInSeconds;
+                    localStorage.setItem('bestScore', this.timeInSeconds);
+                }
+            }
+        },
         mounted() {
-            console.log(this.time);
+            this.setBestScore();
         }
     }
 </script>
