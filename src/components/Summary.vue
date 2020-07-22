@@ -39,6 +39,7 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import SecureLS from 'secure-ls';
 
     export default {
         name: "Summary",
@@ -65,11 +66,14 @@
         },
         methods: {
             setBestScore() {
-                const previousScore = localStorage.getItem('bestScore');
+                const ls =  new SecureLS();
+                const previousScore = ls.get('bestScore');
 
-                if(previousScore === null || this.timeInSeconds < parseInt(previousScore)) {
+                if(previousScore == false || this.timeInSeconds < parseInt(previousScore)) {
                     this.bestScore = this.timeInSeconds;
-                    localStorage.setItem('bestScore', this.timeInSeconds);
+                    ls.set('bestScore', this.timeInSeconds);
+                } else {
+                    this.bestScore = previousScore;
                 }
             }
         },

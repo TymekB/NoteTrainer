@@ -80,9 +80,6 @@
 
                 setTimeout(() => {
                     this.drawRandomNote();
-                    // for(let i = 0; i < 27; i++) {
-                    //     this.drawRandomNote();
-                    // }
                 }, 10);
             },
             restart() {

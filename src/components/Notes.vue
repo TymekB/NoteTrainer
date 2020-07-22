@@ -48,7 +48,7 @@
                         .attr('disabled', true);
                 }
             }
-        }
+        },
     }
 </script>
 
