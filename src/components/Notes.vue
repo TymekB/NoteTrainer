@@ -86,13 +86,13 @@
     }
 
     button.note-btn-success {
-        background: #27ae60;
-        border-color: #258744;
+        background: #42b883;
+        border-color: #429b66;
     }
 
     button.note-btn-danger {
-        background: #f04c3c;
-        border-color: #b94537;
+        background: #dc3545;
+        border-color: #9b3240;
     }
 
 </style>
