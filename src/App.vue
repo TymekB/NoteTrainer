@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <h1 class="logo">Note<span class="correct">Trainer</span></h1>
+        <h1 class="logo">Note<span class="success">Trainer</span></h1>
         <Score></Score>
     </div>
 </template>
@@ -17,8 +17,10 @@
 </script>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
     #app {
-        font-family: Avenir, Helvetica, Arial, sans-serif;
+        font-family: 'Montserrat', sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         color: #2c3e50;
@@ -29,7 +31,7 @@
     }
 
     button {
-        font-family: Avenir, Helvetica, Arial, sans-serif;
+        font-family: 'Montserrat', sans-serif;
     }
 
     h1.logo {
@@ -37,18 +39,14 @@
         text-align: center;
     }
 
-    .correct {
+    .success {
         color: #42b883;
-        font-weight: bold;
+        font-weight: 500;
     }
 
-    .wrong {
+    .danger {
         color: #b84242;
-        font-weight: bold;
-    }
-
-    .modal {
-        font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+        font-weight: 500;
     }
 
     .modal-overlay {

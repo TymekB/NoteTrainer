@@ -7,7 +7,7 @@
         </div>
 
         <div id="score" v-if="clefChosen">
-            <h2>{{previousNotes.length}}/{{max}}</h2>
+            <h2>{{previousNotes.length}} / {{max}}</h2>
             <div id="easy-score"></div>
             <Notes v-on:next-note="drawRandomNote"></Notes>
         </div>
@@ -92,7 +92,7 @@
 
 <style scoped>
     #score h2 {
-        font-weight: 300;
+        font-weight: 400;
         margin: 0;
         padding: 0;
         text-align: center;

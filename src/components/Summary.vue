@@ -10,7 +10,7 @@
                 </header>
                 <main class="modal-content" id="modal-1-content">
                     <p>
-                        <span class="correct">Correct answers:</span>
+                        <span class="success">Correct answers:</span>
                         {{this.answers.correct.length}}
                         ({{correctAnswersPercentage}}%)
                         <br>
@@ -20,7 +20,7 @@
                         </template>
                     </p>
                     <p>
-                        <span class="wrong">Wrong answers:</span>
+                        <span class="danger">Wrong answers:</span>
                         {{this.answers.wrong.length}}
                         ({{wrongAnswersPercentage}}%)
                         <br>
@@ -29,8 +29,10 @@
                             <span v-if="answers.wrong.length-1 !== index" v-bind:key="index">,</span>
                         </template>
                     </p>
-                    <p>Time: {{timeInSeconds}} s</p>
-                    <p v-if="bestScore"><b>Best score: </b>{{bestScore}} s</p>
+                    <p>
+                        Time: {{timeInSeconds}} s <br>
+                        <b v-if="bestScore">Best score: </b>{{bestScore}} s
+                    </p>
                 </main>
             </div>
         </div>
